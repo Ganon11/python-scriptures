@@ -55,7 +55,7 @@ testaments = {'ot': (
 ('II Corinthians', '2Cor', '(?:2|II)(?:\s)?Cor(?:inthians)?', [24, 17, 18, 18, 21, 18, 16, 24, 15, 18, 33, 21, 14]),
 ('Galatians', 'Gal', 'Gal(?:atians)?', [24, 21, 29, 31, 26, 18]),
 ('Ephesians', 'Eph', 'Eph(?:esians)?', [23, 22, 21, 32, 33, 24]),
-('Philippians', 'Phil', 'Phil(?:ippians)?', [30, 30, 21, 23]),
+('Philippians', 'Phil', 'Phili(?:ppians)?', [30, 30, 21, 23]),
 ('Colossians', 'Col', 'Col(?:ossians)?', [29, 23, 25, 18]),
 ('I Thessalonians', '1Thess', '(?:1|I)(?:\s)?Thess(?:alonians)?', [10, 20, 13, 18, 28]),
 ('II Thessalonians', '2Thess', '(?:2|II)(?:\s)?Thess(?:alonians)?', [12, 17, 18]),
