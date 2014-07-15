@@ -115,5 +115,8 @@ scripture_re = re.compile(
      '(?P<EndChapterNumber>\d{1,3}(?=\s*:\s*))?' \
      '(?:\s*:\s*)?' \
      '(?P<EndVerseNumber>\d{1,3})?' \
+     ')?(?:' \
+     '(?:\s*)?' \
+     '(?P<Version>(?:[a-z]+-)?[A-Z]+)?' \
      ')?' % (book_re_string,), re.IGNORECASE | re.UNICODE)
 

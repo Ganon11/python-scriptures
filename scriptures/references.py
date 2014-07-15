@@ -42,7 +42,7 @@ def is_valid_reference(bookname, chapter, verse=None,
         return False
 
 def reference_to_string(bookname, chapter, verse=None,
-                        end_chapter=None, end_verse=None):
+                        end_chapter=None, end_verse=None, version=None):
     """
     Get a display friendly string from a scripture reference
     """
@@ -51,6 +51,8 @@ def reference_to_string(bookname, chapter, verse=None,
     normalized = normalize_reference(bookname, chapter, verse,
         end_chapter, end_verse)
 
+    reference = ''
+
     # if start and end chapters are the same
     if normalized[1] == normalized[3]:
         book = get_book(normalized[0])
@@ -58,25 +60,29 @@ def reference_to_string(bookname, chapter, verse=None,
         if len(book[3]) == 1: # single chapter book
             # If start and end verses are the same
             if normalized[2] == normalized[4]:
-                return '{0} {1}'.format(*normalized[0::2])
+                reference = '{0} {1}'.format(*normalized[0::2])
             else:
-                return '{0} {1}-{2}'.format(*normalized[0::2])
+                reference = '{0} {1}-{2}'.format(*normalized[0::2])
         else: # multichapter book
             # If the start verse is one and the end verse is the last verse in
             # the chapter
             if normalized[2] == 1 and normalized[4] == book[3][normalized[1]-1]:
-                return '{0} {1}'.format(*normalized[:2])
+                reference = '{0} {1}'.format(*normalized[:2])
             # If start and end verses are the same
             elif normalized[2] == normalized[4]:
-                return '{0} {1}:{2}'.format(*normalized[:3])
+                reference = '{0} {1}:{2}'.format(*normalized[:3])
             else:
-                return '{0} {1}:{2}-{3}'.format(
-                    *(normalized[:3] + normalized[-1:]))
+                reference = '{0} {1}:{2}-{3}'.format(
+                    *(normalized[:3] + normalized[-2:]))
     else: # start and end chapters are different
-        return '{0} {1}:{2}-{3}:{4}'.format(*normalized)
+        reference = '{0} {1}:{2}-{3}:{4}'.format(*normalized)
+
+    if version is not None:
+        reference = reference + ' {0}'.format(version)
+    return reference
 
 def normalize_reference(bookname, chapter, verse=None,
-                                  end_chapter=None, end_verse=None):
+                                  end_chapter=None, end_verse=None, version=None):
     """
     Get a complete five value tuple scripture reference with full book name
     from partial data
@@ -126,5 +132,5 @@ def normalize_reference(bookname, chapter, verse=None,
             end_verse = verse
     if not end_chapter:
         end_chapter = chapter
-    return (book[0], chapter, verse, end_chapter, end_verse)
+    return (book[0], chapter, verse, end_chapter, end_verse, version)
 
